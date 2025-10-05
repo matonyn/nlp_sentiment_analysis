@@ -45,6 +45,8 @@ The SVM model, paired with TfidfVectorizer, emerged as the top performer, achiev
 F1-score of 0.83. This was the same for the Logistic Regression (0.83) and it outperformed
 Naive Bayes (0.81) models. Overall, all 3 models were successful in pairing with TfidfVectorizer.
 
+![Alt text](confusion_matrix.png)
+
 # Future Work
 
 We extended this project to support **sentiment analysis for any product page** using **Flask**, **TextBlob**, and **BeautifulSoup**.  
@@ -65,5 +67,3 @@ python sentiment_analysis.py
 ```
 
 This will launch the app at http://127.0.0.1:5000
-
-![Alt text](confusion_matrix.png)
