@@ -45,4 +45,25 @@ The SVM model, paired with TfidfVectorizer, emerged as the top performer, achiev
 F1-score of 0.83. This was the same for the Logistic Regression (0.83) and it outperformed
 Naive Bayes (0.81) models. Overall, all 3 models were successful in pairing with TfidfVectorizer.
 
+# Future Work
+
+We extended this project to support **sentiment analysis for any product page** using **Flask**, **TextBlob**, and **BeautifulSoup**.  
+The backend scrapes the page, extracts text, and runs sentiment analysis to classify it as *Positive*, *Negative*, or *Neutral*.  
+
+### Installation
+
+Make sure you have Python 3.8+ installed. Then install the dependencies:
+
+```
+pip install flask textblob requests beautifulsoup4
+python -m textblob.download_corpora
+```
+
+Start the Flask server:
+```
+python sentiment_analysis.py
+```
+
+This will launch the app at http://127.0.0.1:5000
+
 ![Alt text](confusion_matrix.png)
