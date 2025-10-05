@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Sentiment Analysis</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f6f9;
+      margin: 0;
+      padding: 0;
+    }
+    .container {
+      max-width: 600px;
+      margin: 60px auto;
+      background: #fff;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+    h1 {
+      text-align: center;
+      color: #333;
+      margin-bottom: 20px;
+    }
+    label {
+      font-weight: bold;
+      display: block;
+      margin-bottom: 8px;
+      color: #444;
+    }
+    input[type="text"] {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      margin-bottom: 20px;
+      font-size: 16px;
+    }
+    button {
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      padding: 12px 20px;
+      border-radius: 8px;
+      font-size: 16px;
+      cursor: pointer;
+      width: 100%;
+      transition: background 0.3s ease;
+    }
+    button:hover {
+      background-color: #45a049;
+    }
+    #result {
+      margin-top: 20px;
+      padding: 15px;
+      border-radius: 8px;
+      font-size: 18px;
+      display: none;
+      text-align: center;
+    }
+    #result.positive { background: #e6ffed; color: #047857; }
+    #result.negative { background: #fee2e2; color: #b91c1c; }
+    #result.neutral { background: #f1f5f9; color: #334155; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Product Sentiment Analysis</h1>
+    <form id="urlForm">
+      <label for="productUrl">Enter product URL:</label>
+      <input type="text" id="productUrl" name="productUrl" placeholder="https://example.com/product/123" required>
+      <button type="submit">Analyze</button>
+    </form>
+    <div id="result"></div>
+  </div>
+
+  <script>
+    const form = document.getElementById('urlForm');
+    const resultDiv = document.getElementById('result');
+
+    form.addEventListener('submit', async function(event) {
+      event.preventDefault();
+      const url = document.getElementById('productUrl').value;
+
+      resultDiv.style.display = "block";
+      resultDiv.textContent = "Analyzing...";
+      resultDiv.className = ""; // reset classes
+
+      try {
+        const res = await fetch('/api/analyze', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ url })
+        });
+
+        const data = await res.json();
+        if (data.error) {
+          resultDiv.textContent = "Error: " + data.error;
+        } else {
+          resultDiv.textContent = "Sentiment: " + data.sentiment;
+          resultDiv.classList.add(data.sentiment.toLowerCase());
+        }
+      } catch (err) {
+        resultDiv.textContent = "Error analyzing sentiment.";
+      }
+    });
+  </script>
+</body>
+</html>
